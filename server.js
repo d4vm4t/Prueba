@@ -54,6 +54,20 @@ app.post('/api/auth/login', (req, res) => {
   return res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
 });
 
+app.get('/api/auth/me', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) return res.status(401).json({ message: 'No autorizado' });
+  const token = authHeader.substring(7);
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = db.prepare('SELECT id, name, email, created_at FROM users WHERE id = ?').get(decoded.sub);
+    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+    return res.json({ user: { id: user.id, name: user.name, email: user.email, created_at: user.created_at } });
+  } catch (e) {
+    return res.status(401).json({ message: 'Token inválido' });
+  }
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`API escuchando en http://localhost:${port}`));
 
