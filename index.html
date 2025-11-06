@@ -137,9 +137,9 @@
           <a href="productos.html">Productos</a>
           <a href="#origen">Origen</a>
           <a href="#calidad">Calidad</a>
-          <a href="#suscripcion">Suscripción</a>
+          <a href="suscripcion.html">Suscripción</a>
         </nav>
-        <a class="btn primary" href="#comprar">Comprar</a>
+        <a class="btn primary" href="carrito.html">Carrito <span data-cart-count></span></a>
       </div>
     </header>
 
@@ -151,7 +151,7 @@
             <h1 class="title">Café de especialidad, tostado con paciencia y enviado fresco</h1>
             <p class="subtitle">Seleccionamos granos de micro-lotes latinoamericanos y tostamos en pequeños volúmenes para preservar aroma, dulzor y complejidad. Suscríbete y recibe tu café cuando lo necesitas.</p>
             <div class="cta">
-              <a class="btn primary" href="#comprar">Comprar ahora</a>
+              <a class="btn primary" href="productos.html">Comprar ahora</a>
               <a class="btn" href="#suscripcion">Ver suscripción</a>
             </div>
           </div>
@@ -229,6 +229,9 @@
           e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       });
+      function getCart(){ return JSON.parse(localStorage.getItem('aurora_cart')||'{}'); }
+      function updateCartCount(){ const c = getCart(); const n = Object.values(c).reduce((a,b)=>a+b.cantidad,0); document.querySelectorAll('[data-cart-count]').forEach(el=> el.textContent = n?`(${n})`:''); }
+      updateCartCount();
     </script>
   </body>
   </html>
