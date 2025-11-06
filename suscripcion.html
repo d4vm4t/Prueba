@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aurora — Suscripción</title>
+    <meta name="description" content="Crea tu cuenta o inicia sesión para gestionar tu suscripción de café." />
+    <style>
+      :root { --text:#e8eaf7; --muted:#b8bcdf; --primary:#8b5cf6; --primary-2:#22d3ee; --shadow:0 10px 30px rgba(0,0,0,.35); }
+      *{ box-sizing:border-box }
+      body{ margin:0; color:var(--text); background: linear-gradient(180deg, #0c1020 0%, #0a0d1a 100%); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial }
+      .container{ max-width: 960px; margin: 0 auto; padding: 0 20px }
+      header{ position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(120%) blur(10px); background: linear-gradient(180deg, rgba(10,13,26,.85), rgba(10,13,26,.55)); border-bottom: 1px solid rgba(255,255,255,.06) }
+      .nav{ display:flex; align-items:center; justify-content:space-between; height:64px }
+      .brand{ display:flex; align-items:center; gap:10px; font-weight:700 }
+      .logo{ width:28px; height:28px; border-radius:8px; background: conic-gradient(from 210deg, var(--primary), var(--primary-2), var(--primary)); box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 6px 20px rgba(34, 211, 238, .25) }
+      nav a{ color:var(--muted); text-decoration:none; margin:0 10px; font-size:14px }
+      nav a:hover, nav a.active{ color:var(--text) }
+      .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 16px; border-radius:10px; border:1px solid rgba(255,255,255,.1); color:var(--text); text-decoration:none; font-weight:600; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)) }
+      .btn.primary{ background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%); color:#08101a; border:none; box-shadow:var(--shadow) }
+
+      main{ padding: 40px 0 60px }
+      .auth{ display:grid; grid-template-columns: 1fr 1fr; gap:18px }
+      .card{ border:1px solid rgba(255,255,255,.08); border-radius:16px; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); box-shadow:var(--shadow); padding:18px }
+      .card h2{ margin:6px 0 12px }
+      label{ display:block; font-size:14px; color:var(--muted); margin:8px 0 6px }
+      input{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); color:var(--text) }
+      .row{ display:grid; gap:10px }
+      .msg{ font-size:14px; color:var(--muted); min-height: 18px; margin-top:6px }
+      .ok{ color:#22d3ae }
+      .err{ color:#f87171 }
+
+      @media (max-width: 900px){ .auth{ grid-template-columns: 1fr } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <span>Aurora Café</span>
+        </div>
+        <nav aria-label="Primaria">
+          <a href="index.html#inicio">Inicio</a>
+          <a href="productos.html">Productos</a>
+          <a href="suscripcion.html" class="active">Suscripción</a>
+        </nav>
+        <a class="btn primary" href="carrito.html">Carrito <span data-cart-count></span></a>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Suscripción Aurora</h1>
+      <p class="msg">Crea una cuenta o inicia sesión para gestionar tu plan.</p>
+
+      <section class="auth">
+        <form class="card" id="form-login">
+          <h2>Inicia sesión</h2>
+          <div class="row">
+            <label for="login-email">Correo</label>
+            <input id="login-email" type="email" autocomplete="email" required />
+          </div>
+          <div class="row">
+            <label for="login-pass">Contraseña</label>
+            <input id="login-pass" type="password" autocomplete="current-password" required />
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; align-items:center">
+            <button class="btn primary" type="submit">Entrar</button>
+            <span class="msg" id="login-msg"></span>
+          </div>
+        </form>
+
+        <form class="card" id="form-reg">
+          <h2>Crea tu cuenta</h2>
+          <div class="row">
+            <label for="reg-name">Nombre</label>
+            <input id="reg-name" type="text" autocomplete="name" required />
+          </div>
+          <div class="row">
+            <label for="reg-email">Correo</label>
+            <input id="reg-email" type="email" autocomplete="email" required />
+          </div>
+          <div class="row">
+            <label for="reg-pass">Contraseña</label>
+            <input id="reg-pass" type="password" autocomplete="new-password" minlength="6" required />
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; align-items:center">
+            <button class="btn primary" type="submit">Registrarme</button>
+            <span class="msg" id="reg-msg"></span>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container" style="padding: 28px 0 38px; color: var(--muted); border-top: 1px solid rgba(255,255,255,.06)">
+        <p>© <span id="year"></span> Aurora Café — Hecho con cariño y cafeína</p>
+      </div>
+    </footer>
+
+    <script>
+      const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+      function getCart(){ return JSON.parse(localStorage.getItem('aurora_cart')||'{}'); }
+      function updateCartCount(){ const c = getCart(); const n = Object.values(c).reduce((a,b)=>a+b.cantidad,0); document.querySelectorAll('[data-cart-count]').forEach(el=> el.textContent = n?`(${n})`:''); }
+      updateCartCount();
+
+      const API = localStorage.getItem('aurora_api') || 'http://localhost:3000/api';
+      const loginForm = document.getElementById('form-login');
+      const regForm = document.getElementById('form-reg');
+      const loginMsg = document.getElementById('login-msg');
+      const regMsg = document.getElementById('reg-msg');
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        loginMsg.textContent = '';
+        try {
+          const body = { email: document.getElementById('login-email').value.trim().toLowerCase(), password: document.getElementById('login-pass').value };
+          const res = await fetch(`${API}/auth/login`, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(body), credentials:'include' });
+          const data = await res.json();
+          if(!res.ok) throw new Error(data.message || 'Credenciales inválidas');
+          localStorage.setItem('aurora_token', data.token);
+          loginMsg.textContent = '¡Bienvenido!'; loginMsg.className = 'msg ok';
+        } catch(err){ loginMsg.textContent = err.message; loginMsg.className = 'msg err'; }
+      });
+
+      regForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        regMsg.textContent = '';
+        try {
+          const body = { name: document.getElementById('reg-name').value.trim(), email: document.getElementById('reg-email').value.trim().toLowerCase(), password: document.getElementById('reg-pass').value };
+          const res = await fetch(`${API}/auth/register`, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(body), credentials:'include' });
+          const data = await res.json();
+          if(!res.ok) throw new Error(data.message || 'No se pudo registrar');
+          regMsg.textContent = 'Registro exitoso. Ya puedes iniciar sesión.'; regMsg.className = 'msg ok';
+          regForm.reset();
+        } catch(err){ regMsg.textContent = err.message; regMsg.className = 'msg err'; }
+      });
+    </script>
+  </body>
+  </html>
+
+
