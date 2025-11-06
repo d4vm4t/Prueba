@@ -44,6 +44,8 @@
         <nav aria-label="Primaria">
           <a href="index.html#inicio">Inicio</a>
           <a href="productos.html">Productos</a>
+          <a href="suscripcion.html">Suscripción</a>
+          <a href="perfil.html" id="nav-perfil" style="display:none">Mi Perfil</a>
         </nav>
         <a class="btn primary" href="carrito.html">Carrito <span data-cart-count></span></a>
       </div>
@@ -122,6 +124,16 @@
 
       document.getElementById('vaciar').addEventListener('click', ()=> { localStorage.removeItem('aurora_cart'); updateCartCount(); render(); });
 
+      async function checkAuthNav() {
+        const token = localStorage.getItem('aurora_token');
+        if (!token) return;
+        try {
+          const API = localStorage.getItem('aurora_api') || 'http://localhost:3000/api';
+          const res = await fetch(`${API}/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
+          if (res.ok) document.getElementById('nav-perfil').style.display = 'inline';
+        } catch (e) { localStorage.removeItem('aurora_token'); }
+      }
+      checkAuthNav();
       updateCartCount();
       render();
     </script>
