@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aurora — Productos</title>
+    <meta name="description" content="Descubre nuestros cafés de especialidad: origen único, mezclas y ediciones limitadas." />
+    <style>
+      :root {
+        --bg: #0f1221;
+        --text: #e8eaf7;
+        --muted: #b8bcdf;
+        --primary: #8b5cf6;
+        --primary-2: #22d3ee;
+        --shadow: 0 10px 30px rgba(0,0,0,.35);
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0; color: var(--text);
+        background:
+          radial-gradient(1200px 600px at 10% -10%, rgba(34, 211, 238, .12), transparent 60%),
+          radial-gradient(1200px 600px at 110% 10%, rgba(139, 92, 246, .12), transparent 60%),
+          linear-gradient(180deg, #0c1020 0%, #0a0d1a 100%);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      }
+      .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+      header { position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(120%) blur(10px); background: linear-gradient(180deg, rgba(10,13,26,.85), rgba(10,13,26,.55)); border-bottom: 1px solid rgba(255,255,255,.06); }
+      .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+      .logo { width: 28px; height: 28px; border-radius: 8px; background: conic-gradient(from 210deg, var(--primary), var(--primary-2), var(--primary)); box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 6px 20px rgba(34, 211, 238, .25); }
+      nav a { color: var(--muted); text-decoration: none; margin: 0 10px; font-size: 14px; }
+      nav a:hover, nav a.active { color: var(--text); }
+      .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,.1); color: var(--text); text-decoration: none; font-weight: 600; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); }
+      .btn.primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%); color: #08101a; border: none; box-shadow: var(--shadow); }
+
+      .page { padding: 40px 0 24px; }
+      h1 { margin: 8px 0 6px; font-size: clamp(26px, 4vw, 38px); }
+      p.lead { color: var(--muted); max-width: 60ch; }
+
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 22px 0 60px; }
+      .card { border: 1px solid rgba(255,255,255,.08); border-radius: 16px; overflow: hidden; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); box-shadow: var(--shadow); display: flex; flex-direction: column; }
+      .media { aspect-ratio: 4/3; background:
+          radial-gradient(180px 90px at 60% 25%, rgba(255,255,255,.12), transparent 60%),
+          radial-gradient(240px 120px at 30% 60%, rgba(139, 92, 246, .18), transparent 60%),
+          radial-gradient(200px 100px at 80% 70%, rgba(34, 211, 238, .18), transparent 60%),
+          linear-gradient(180deg, #11142a, #0e1226);
+      }
+      .content { padding: 14px 16px; display: grid; gap: 6px; }
+      .meta { color: var(--muted); font-size: 14px; }
+      .price { font-weight: 700; }
+      .actions { display: flex; gap: 10px; padding: 0 16px 16px; }
+
+      footer { padding: 28px 0 38px; color: var(--muted); border-top: 1px solid rgba(255,255,255,.06); }
+      .foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+
+      @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+      @media (prefers-color-scheme: light) { :root { --text: #0c1020; --muted: #4b4f6b; } body { background: linear-gradient(180deg, #f7f8ff 0%, #eef1ff 100%); } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <span>Aurora Café</span>
+        </div>
+        <nav aria-label="Primaria">
+          <a href="index.html#inicio">Inicio</a>
+          <a href="productos.html" class="active">Productos</a>
+          <a href="index.html#origen">Origen</a>
+          <a href="index.html#calidad">Calidad</a>
+          <a href="index.html#suscripcion">Suscripción</a>
+        </nav>
+        <a class="btn primary" href="#">Carrito</a>
+      </div>
+    </header>
+
+    <main class="container page">
+      <h1>Nuestros cafés</h1>
+      <p class="lead">Explora orígenes únicos y mezclas pensadas para distintos métodos. Todos los lotes se tuestan cada viernes para garantizar frescura.</p>
+
+      <section class="grid" aria-label="Listado de productos">
+        <article class="card">
+          <div class="media" aria-hidden="true"></div>
+          <div class="content">
+            <h3>Colombia — Huila</h3>
+            <div class="meta">Notas: panela, durazno, cacao • Lavado • 86 pts</div>
+            <div class="price">250g — $9.90</div>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#">Añadir</a>
+            <a class="btn" href="#">Detalles</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media" aria-hidden="true"></div>
+          <div class="content">
+            <h3>Etiopía — Yirgacheffe</h3>
+            <div class="meta">Notas: jazmín, bergamota, miel • Natural • 87 pts</div>
+            <div class="price">250g — $11.50</div>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#">Añadir</a>
+            <a class="btn" href="#">Detalles</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media" aria-hidden="true"></div>
+          <div class="content">
+            <h3>Blend Casa — Aurora 01</h3>
+            <div class="meta">Dulzor balanceado para espresso • Cacao, almendra, caramelo</div>
+            <div class="price">250g — $8.99</div>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#">Añadir</a>
+            <a class="btn" href="#">Detalles</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media" aria-hidden="true"></div>
+          <div class="content">
+            <h3>Brasil — Minas Gerais</h3>
+            <div class="meta">Chocolate con leche, nuez, crema • Natural • 84 pts</div>
+            <div class="price">250g — $8.50</div>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#">Añadir</a>
+            <a class="btn" href="#">Detalles</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media" aria-hidden="true"></div>
+          <div class="content">
+            <h3>Guatemala — Huehuetenango</h3>
+            <div class="meta">Cereza, cacao amargo, caña • Lavado • 85 pts</div>
+            <div class="price">250g — $9.40</div>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#">Añadir</a>
+            <a class="btn" href="#">Detalles</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media" aria-hidden="true"></div>
+          <div class="content">
+            <h3>Descafeinado — Sugar Cane</h3>
+            <div class="meta">Proceso EA • Chocolate, galleta, manzana • Suave</div>
+            <div class="price">250g — $9.90</div>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#">Añadir</a>
+            <a class="btn" href="#">Detalles</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container foot">
+        <p>© <span id="year"></span> Aurora Café — Hecho con cariño y cafeína</p>
+        <div>
+          <a href="#" style="color:inherit; text-decoration:none; margin-right:10px">Privacidad</a>
+          <a href="#" style="color:inherit; text-decoration:none">Términos</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+    </script>
+  </body>
+  </html>
+
+
