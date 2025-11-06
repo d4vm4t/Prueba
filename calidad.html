@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aurora — Calidad</title>
+    <meta name="description" content="Nuestro compromiso con la calidad: procesos de tueste, puntuación SCA y garantía de frescura." />
+    <style>
+      :root { --text:#e8eaf7; --muted:#b8bcdf; --primary:#8b5cf6; --primary-2:#22d3ee; --shadow:0 10px 30px rgba(0,0,0,.35); }
+      *{ box-sizing:border-box }
+      body{ margin:0; color:var(--text); background: linear-gradient(180deg, #0c1020 0%, #0a0d1a 100%); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial }
+      .container{ max-width: 960px; margin: 0 auto; padding: 0 20px }
+      header{ position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(120%) blur(10px); background: linear-gradient(180deg, rgba(10,13,26,.85), rgba(10,13,26,.55)); border-bottom: 1px solid rgba(255,255,255,.06) }
+      .nav{ display:flex; align-items:center; justify-content:space-between; height:64px }
+      .brand{ display:flex; align-items:center; gap:10px; font-weight:700 }
+      .logo{ width:28px; height:28px; border-radius:8px; background: conic-gradient(from 210deg, var(--primary), var(--primary-2), var(--primary)); box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 6px 20px rgba(34, 211, 238, .25) }
+      nav a{ color:var(--muted); text-decoration:none; margin:0 10px; font-size:14px }
+      nav a:hover, nav a.active{ color:var(--text) }
+      .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 16px; border-radius:10px; border:1px solid rgba(255,255,255,.1); color:var(--text); text-decoration:none; font-weight:600; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)) }
+      .btn.primary{ background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%); color:#08101a; border:none; box-shadow:var(--shadow) }
+
+      main{ padding: 40px 0 60px }
+      h1{ margin:8px 0 6px; font-size:clamp(28px, 4vw, 42px) }
+      .lead{ color:var(--muted); font-size:18px; max-width:70ch; margin-bottom:32px }
+      .card{ border:1px solid rgba(255,255,255,.08); border-radius:16px; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); box-shadow:var(--shadow); padding:24px; margin-bottom:18px }
+      .card h2{ margin:0 0 12px }
+      .card p{ margin:0 0 12px; line-height:1.7 }
+      .card p:last-child{ margin-bottom:0 }
+      .grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:18px; margin-top:24px }
+      .feature{ border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:20px; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)) }
+      .feature h3{ margin:0 0 8px; font-size:20px }
+      .feature p{ margin:0; color:var(--muted); line-height:1.6 }
+      .process{ display:flex; align-items:start; gap:16px; padding:16px; border:1px solid rgba(255,255,255,.08); border-radius:12px; margin-bottom:12px; background: rgba(255,255,255,.02) }
+      .process-icon{ font-size:24px; flex-shrink:0 }
+      .process-content h3{ margin:0 0 6px; font-size:18px }
+      .process-content p{ margin:0; color:var(--muted); line-height:1.6 }
+
+      footer{ padding: 28px 0 38px; color: var(--muted); border-top: 1px solid rgba(255,255,255,.06) }
+      .foot{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px }
+
+      @media (max-width: 900px){ .grid{ grid-template-columns: 1fr } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <span>Aurora Café</span>
+        </div>
+        <nav aria-label="Primaria">
+          <a href="index.html#inicio">Inicio</a>
+          <a href="productos.html">Productos</a>
+          <a href="origen.html">Origen</a>
+          <a href="calidad.html" class="active">Calidad</a>
+          <a href="suscripcion.html">Suscripción</a>
+          <a href="perfil.html" id="nav-perfil" style="display:none">Mi Perfil</a>
+        </nav>
+        <a class="btn primary" href="carrito.html">Carrito <span data-cart-count></span></a>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Nuestro compromiso con la calidad</h1>
+      <p class="lead">Desde la selección de granos hasta el tueste y el envío, cada paso está diseñado para preservar y realzar las características únicas de cada café.</p>
+
+      <section class="card">
+        <h2>Puntuación SCA (Specialty Coffee Association)</h2>
+        <p>Todos nuestros cafés son evaluados según los estándares de la SCA y deben alcanzar un mínimo de 83 puntos sobre 100 para ser considerados de especialidad. La mayoría de nuestros lotes superan los 85 puntos, garantizando un perfil de sabor excepcional.</p>
+        <p>La evaluación incluye análisis de fragancia, aroma, sabor, acidez, cuerpo, balance y taza limpia. Solo los cafés que destacan en todas estas categorías llegan a tu taza.</p>
+      </section>
+
+      <section class="card">
+        <h2>Tueste perfilado</h2>
+        <p>Tostamos en pequeños lotes cada viernes para garantizar frescura máxima. Cada origen tiene un perfil de tueste específico diseñado para resaltar sus características únicas.</p>
+        <p>Nuestros perfiles van desde tuestes medios-ligeros para cafés etíopes (que preservan notas florales y cítricas) hasta tuestes medios para blends (que desarrollan cuerpo y dulzor). Nunca tostamos más allá de medio-oscuro para preservar la complejidad del grano.</p>
+      </section>
+
+      <section class="card">
+        <h2>Garantía de frescura</h2>
+        <p>El café se envía dentro de las 48 horas posteriores al tueste. Cada bolsa incluye la fecha de tueste y recomendamos consumirlo dentro de los 30 días para disfrutar de todo su sabor.</p>
+        <p>Utilizamos empaques con válvula unidireccional que permite la salida de CO₂ mientras protege el café de la oxidación y la luz.</p>
+      </section>
+
+      <h2 style="margin-top:40px; margin-bottom:20px">Procesos de calidad</h2>
+      <div style="margin-top:24px">
+        <div class="process">
+          <div class="process-icon">🌱</div>
+          <div class="process-content">
+            <h3>Selección de granos</h3>
+            <p>Cupping ciego de cada lote antes de la compra. Solo seleccionamos lotes que superan nuestros estándares de sabor y calidad.</p>
+          </div>
+        </div>
+
+        <div class="process">
+          <div class="process-icon">🔥</div>
+          <div class="process-content">
+            <h3>Tueste artesanal</h3>
+            <p>Tostamos en lotes de máximo 5kg para tener control total sobre el desarrollo del sabor. Cada perfil se ajusta según el origen y el proceso.</p>
+          </div>
+        </div>
+
+        <div class="process">
+          <div class="process-icon">📦</div>
+          <div class="process-content">
+            <h3>Empaque y envío</h3>
+            <p>Empacado inmediato post-tueste en bolsas con válvula unidireccional. Envío prioritario para que recibas el café en su punto óptimo.</p>
+          </div>
+        </div>
+
+        <div class="process">
+          <div class="process-icon">☕</div>
+          <div class="process-content">
+            <h3>Preparación recomendada</h3>
+            <p>Cada café incluye recomendaciones de molienda, temperatura de agua y método de preparación para obtener el mejor resultado.</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="card" style="margin-top:32px">
+        <h2>Métodos de preparación</h2>
+        <p>Nuestros cafés están optimizados para diferentes métodos. Los perfiles más ligeros brillan en métodos de filtrado (V60, Chemex, AeroPress), mientras que nuestros blends están diseñados para espresso y métodos de inmersión (French Press, Kalita Wave).</p>
+        <p>En cada bolsa encontrarás recomendaciones específicas para tu método preferido, incluyendo ratio agua:café, tiempo de extracción y temperatura ideal.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container foot">
+        <p>© <span id="year"></span> Aurora Café — Hecho con cariño y cafeína</p>
+        <div>
+          <a href="#" style="color:inherit; text-decoration:none; margin-right:10px">Privacidad</a>
+          <a href="#" style="color:inherit; text-decoration:none">Términos</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+      function getCart(){ return JSON.parse(localStorage.getItem('aurora_cart')||'{}'); }
+      function updateCartCount(){ const c = getCart(); const n = Object.values(c).reduce((a,b)=>a+b.cantidad,0); document.querySelectorAll('[data-cart-count]').forEach(el=> el.textContent = n?`(${n})`:''); }
+      updateCartCount();
+      async function checkAuthNav() {
+        const token = localStorage.getItem('aurora_token');
+        if (!token) return;
+        try {
+          const API = localStorage.getItem('aurora_api') || 'http://localhost:3000/api';
+          const res = await fetch(`${API}/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
+          if (res.ok) document.getElementById('nav-perfil').style.display = 'inline';
+        } catch (e) { localStorage.removeItem('aurora_token'); }
+      }
+      checkAuthNav();
+    </script>
+  </body>
+</html>
+
