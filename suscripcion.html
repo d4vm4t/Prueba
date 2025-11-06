@@ -30,7 +30,17 @@
       .ok{ color:#22d3ae }
       .err{ color:#f87171 }
 
-      @media (max-width: 900px){ .auth{ grid-template-columns: 1fr } }
+      .plans{ display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; margin-top:24px }
+      .plan{ border:1px solid rgba(255,255,255,.08); border-radius:16px; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); box-shadow:var(--shadow); padding:24px; display:flex; flex-direction:column }
+      .plan.featured{ border-color:var(--primary); background: linear-gradient(180deg, rgba(139, 92, 246, .1), rgba(34, 211, 238, .05)) }
+      .plan h3{ margin:0 0 8px }
+      .plan-price{ font-size:32px; font-weight:700; margin:12px 0 }
+      .plan-features{ list-style:none; padding:0; margin:16px 0; flex-grow:1 }
+      .plan-features li{ padding:8px 0; border-bottom:1px solid rgba(255,255,255,.06) }
+      .plan-features li:last-child{ border-bottom:none }
+      .plan-features li:before{ content:'✓ '; color:#22d3ae; font-weight:700 }
+
+      @media (max-width: 900px){ .auth{ grid-template-columns: 1fr }; .plans{ grid-template-columns: 1fr } }
     </style>
   </head>
   <body>
@@ -44,52 +54,103 @@
           <a href="index.html#inicio">Inicio</a>
           <a href="productos.html">Productos</a>
           <a href="suscripcion.html" class="active">Suscripción</a>
+          <a href="perfil.html" id="nav-perfil" style="display:none">Mi Perfil</a>
         </nav>
         <a class="btn primary" href="carrito.html">Carrito <span data-cart-count></span></a>
       </div>
     </header>
 
     <main class="container">
-      <h1>Suscripción Aurora</h1>
-      <p class="msg">Crea una cuenta o inicia sesión para gestionar tu plan.</p>
+      <div id="auth-section">
+        <h1>Suscripción Aurora</h1>
+        <p class="msg">Crea una cuenta o inicia sesión para gestionar tu plan.</p>
 
-      <section class="auth">
-        <form class="card" id="form-login">
-          <h2>Inicia sesión</h2>
-          <div class="row">
-            <label for="login-email">Correo</label>
-            <input id="login-email" type="email" autocomplete="email" required />
-          </div>
-          <div class="row">
-            <label for="login-pass">Contraseña</label>
-            <input id="login-pass" type="password" autocomplete="current-password" required />
-          </div>
-          <div style="margin-top:12px; display:flex; gap:10px; align-items:center">
-            <button class="btn primary" type="submit">Entrar</button>
-            <span class="msg" id="login-msg"></span>
-          </div>
-        </form>
+        <section class="auth">
+          <form class="card" id="form-login">
+            <h2>Inicia sesión</h2>
+            <div class="row">
+              <label for="login-email">Correo</label>
+              <input id="login-email" type="email" autocomplete="email" required />
+            </div>
+            <div class="row">
+              <label for="login-pass">Contraseña</label>
+              <input id="login-pass" type="password" autocomplete="current-password" required />
+            </div>
+            <div style="margin-top:12px; display:flex; gap:10px; align-items:center">
+              <button class="btn primary" type="submit">Entrar</button>
+              <span class="msg" id="login-msg"></span>
+            </div>
+          </form>
 
-        <form class="card" id="form-reg">
-          <h2>Crea tu cuenta</h2>
-          <div class="row">
-            <label for="reg-name">Nombre</label>
-            <input id="reg-name" type="text" autocomplete="name" required />
-          </div>
-          <div class="row">
-            <label for="reg-email">Correo</label>
-            <input id="reg-email" type="email" autocomplete="email" required />
-          </div>
-          <div class="row">
-            <label for="reg-pass">Contraseña</label>
-            <input id="reg-pass" type="password" autocomplete="new-password" minlength="6" required />
-          </div>
-          <div style="margin-top:12px; display:flex; gap:10px; align-items:center">
-            <button class="btn primary" type="submit">Registrarme</button>
-            <span class="msg" id="reg-msg"></span>
-          </div>
-        </form>
-      </section>
+          <form class="card" id="form-reg">
+            <h2>Crea tu cuenta</h2>
+            <div class="row">
+              <label for="reg-name">Nombre</label>
+              <input id="reg-name" type="text" autocomplete="name" required />
+            </div>
+            <div class="row">
+              <label for="reg-email">Correo</label>
+              <input id="reg-email" type="email" autocomplete="email" required />
+            </div>
+            <div class="row">
+              <label for="reg-pass">Contraseña</label>
+              <input id="reg-pass" type="password" autocomplete="new-password" minlength="6" required />
+            </div>
+            <div style="margin-top:12px; display:flex; gap:10px; align-items:center">
+              <button class="btn primary" type="submit">Registrarme</button>
+              <span class="msg" id="reg-msg"></span>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <div id="plans-section" style="display:none">
+        <h1>Elige tu plan de suscripción</h1>
+        <p class="msg">Recibe café fresco cada mes, con envío gratis y descuentos exclusivos.</p>
+
+        <section class="plans">
+          <article class="plan">
+            <h3>Básico</h3>
+            <div class="plan-price">$24.99<span style="font-size:16px; font-weight:400; color:var(--muted)">/mes</span></div>
+            <ul class="plan-features">
+              <li>250g de café cada mes</li>
+              <li>Envío gratis</li>
+              <li>Descuento del 10% en productos</li>
+              <li>Puedes pausar o cancelar cuando quieras</li>
+            </ul>
+            <button class="btn primary" style="margin-top:auto">Elegir Básico</button>
+          </article>
+
+          <article class="plan featured">
+            <h3>Premium</h3>
+            <div class="plan-price">$39.99<span style="font-size:16px; font-weight:400; color:var(--muted)">/mes</span></div>
+            <ul class="plan-features">
+              <li>500g de café cada mes</li>
+              <li>Envío gratis</li>
+              <li>Descuento del 15% en productos</li>
+              <li>Acceso a ediciones limitadas</li>
+              <li>Guía de preparación mensual</li>
+              <li>Puedes pausar o cancelar cuando quieras</li>
+            </ul>
+            <button class="btn primary" style="margin-top:auto">Elegir Premium</button>
+          </article>
+
+          <article class="plan">
+            <h3>Deluxe</h3>
+            <div class="plan-price">$59.99<span style="font-size:16px; font-weight:400; color:var(--muted)">/mes</span></div>
+            <ul class="plan-features">
+              <li>1kg de café cada mes</li>
+              <li>Envío gratis</li>
+              <li>Descuento del 20% en productos</li>
+              <li>Acceso prioritario a ediciones limitadas</li>
+              <li>Guía de preparación mensual</li>
+              <li>Degustación virtual trimestral</li>
+              <li>Puedes pausar o cancelar cuando quieras</li>
+            </ul>
+            <button class="btn primary" style="margin-top:auto">Elegir Deluxe</button>
+          </article>
+        </section>
+      </div>
     </main>
 
     <footer>
@@ -105,10 +166,32 @@
       updateCartCount();
 
       const API = localStorage.getItem('aurora_api') || 'http://localhost:3000/api';
+      const token = localStorage.getItem('aurora_token');
+      const authSection = document.getElementById('auth-section');
+      const plansSection = document.getElementById('plans-section');
+      const navPerfil = document.getElementById('nav-perfil');
       const loginForm = document.getElementById('form-login');
       const regForm = document.getElementById('form-reg');
       const loginMsg = document.getElementById('login-msg');
       const regMsg = document.getElementById('reg-msg');
+
+      async function checkAuth() {
+        if (!token) return false;
+        try {
+          const res = await fetch(`${API}/auth/me`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (res.ok) {
+            authSection.style.display = 'none';
+            plansSection.style.display = 'block';
+            navPerfil.style.display = 'inline';
+            return true;
+          }
+        } catch (e) {
+          localStorage.removeItem('aurora_token');
+        }
+        return false;
+      }
 
       loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -119,7 +202,12 @@
           const data = await res.json();
           if(!res.ok) throw new Error(data.message || 'Credenciales inválidas');
           localStorage.setItem('aurora_token', data.token);
-          loginMsg.textContent = '¡Bienvenido!'; loginMsg.className = 'msg ok';
+          loginMsg.textContent = '¡Bienvenido! Redirigiendo...'; loginMsg.className = 'msg ok';
+          setTimeout(() => {
+            authSection.style.display = 'none';
+            plansSection.style.display = 'block';
+            navPerfil.style.display = 'inline';
+          }, 1000);
         } catch(err){ loginMsg.textContent = err.message; loginMsg.className = 'msg err'; }
       });
 
@@ -135,6 +223,8 @@
           regForm.reset();
         } catch(err){ regMsg.textContent = err.message; regMsg.className = 'msg err'; }
       });
+
+      checkAuth();
     </script>
   </body>
   </html>
