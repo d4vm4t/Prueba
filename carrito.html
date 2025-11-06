@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aurora — Carrito</title>
+    <meta name="description" content="Revisa tu carrito de compras y finaliza tu pedido." />
+    <style>
+      :root { --text:#e8eaf7; --muted:#b8bcdf; --primary:#8b5cf6; --primary-2:#22d3ee; --shadow:0 10px 30px rgba(0,0,0,.35); }
+      *{ box-sizing:border-box }
+      body{ margin:0; color:var(--text); background: linear-gradient(180deg, #0c1020 0%, #0a0d1a 100%); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial }
+      .container{ max-width: 900px; margin: 0 auto; padding: 0 20px }
+      header{ position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(120%) blur(10px); background: linear-gradient(180deg, rgba(10,13,26,.85), rgba(10,13,26,.55)); border-bottom: 1px solid rgba(255,255,255,.06) }
+      .nav{ display:flex; align-items:center; justify-content:space-between; height:64px }
+      .brand{ display:flex; align-items:center; gap:10px; font-weight:700 }
+      .logo{ width:28px; height:28px; border-radius:8px; background: conic-gradient(from 210deg, var(--primary), var(--primary-2), var(--primary)); box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 6px 20px rgba(34, 211, 238, .25) }
+      nav a{ color:var(--muted); text-decoration:none; margin:0 10px; font-size:14px }
+      nav a:hover{ color:var(--text) }
+      .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 16px; border-radius:10px; border:1px solid rgba(255,255,255,.1); color:var(--text); text-decoration:none; font-weight:600; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)) }
+      .btn.primary{ background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%); color:#08101a; border:none; box-shadow:var(--shadow) }
+
+      main{ padding: 36px 0 32px }
+      h1{ margin:8px 0 6px }
+      .cart{ border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); box-shadow:var(--shadow) }
+      .row{ display:grid; grid-template-columns: 1fr auto auto auto; gap:12px; padding:12px 16px; align-items:center; border-bottom:1px solid rgba(255,255,255,.06) }
+      .row.header{ color:var(--muted); font-size:14px; background: rgba(255,255,255,.02) }
+      .row:last-child{ border-bottom:none }
+      .qty{ display:flex; gap:6px; align-items:center }
+      .qty button{ width:28px; height:28px; border-radius:8px }
+      .total{ display:flex; justify-content:space-between; padding:14px 16px }
+      .muted{ color:var(--muted) }
+
+      footer{ padding: 28px 0 38px; color: var(--muted); border-top: 1px solid rgba(255,255,255,.06) }
+      .foot{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <span>Aurora Café</span>
+        </div>
+        <nav aria-label="Primaria">
+          <a href="index.html#inicio">Inicio</a>
+          <a href="productos.html">Productos</a>
+        </nav>
+        <a class="btn primary" href="carrito.html">Carrito <span data-cart-count></span></a>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Tu carrito</h1>
+      <p class="muted">Revisa los artículos añadidos. Puedes ajustar cantidades o vaciar el carrito.</p>
+
+      <section class="cart" id="cart">
+        <div class="row header">
+          <div>Producto</div>
+          <div>Cantidad</div>
+          <div>Precio</div>
+          <div>Subtotal</div>
+        </div>
+        <!-- filas generadas dinámicamente -->
+      </section>
+
+      <div class="total">
+        <div>
+          <button class="btn" id="vaciar">Vaciar</button>
+        </div>
+        <div>
+          <span class="muted">Total:</span>
+          <strong id="total"></strong>
+          <a class="btn primary" href="#" style="margin-left:10px">Pagar</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container foot">
+        <p>© <span id="year"></span> Aurora Café — Hecho con cariño y cafeína</p>
+        <div>
+          <a href="#" style="color:inherit; text-decoration:none; margin-right:10px">Privacidad</a>
+          <a href="#" style="color:inherit; text-decoration:none">Términos</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+      function getCart(){ return JSON.parse(localStorage.getItem('aurora_cart')||'{}'); }
+      function setCart(c){ localStorage.setItem('aurora_cart', JSON.stringify(c)); updateCartCount(); }
+      function updateCartCount(){ const c = getCart(); const n = Object.values(c).reduce((a,b)=>a+b.cantidad,0); document.querySelectorAll('[data-cart-count]').forEach(el=> el.textContent = n?`(${n})`:'' ); }
+
+      function render(){
+        const cart = getCart();
+        const cont = document.getElementById('cart');
+        const ids = Object.keys(cart);
+        cont.querySelectorAll('.row.item').forEach(n=>n.remove());
+        let total = 0;
+        ids.forEach(id => {
+          const it = cart[id];
+          const sub = it.precio * it.cantidad; total += sub;
+          const row = document.createElement('div'); row.className = 'row item';
+          row.innerHTML = `
+            <div>${it.nombre}</div>
+            <div class="qty">
+              <button class="btn" data-dec="${id}">–</button>
+              <span>${it.cantidad}</span>
+              <button class="btn" data-inc="${id}">+</button>
+              <button class="btn" data-del="${id}">x</button>
+            </div>
+            <div>$${it.precio.toFixed(2)}</div>
+            <div>$${sub.toFixed(2)}</div>`;
+          cont.appendChild(row);
+        });
+        document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+
+        cont.querySelectorAll('[data-inc]').forEach(b=> b.onclick = () => { const id=b.getAttribute('data-inc'); const c=getCart(); c[id].cantidad++; setCart(c); render(); });
+        cont.querySelectorAll('[data-dec]').forEach(b=> b.onclick = () => { const id=b.getAttribute('data-dec'); const c=getCart(); c[id].cantidad = Math.max(0, c[id].cantidad-1); if(c[id].cantidad===0) delete c[id]; setCart(c); render(); });
+        cont.querySelectorAll('[data-del]').forEach(b=> b.onclick = () => { const id=b.getAttribute('data-del'); const c=getCart(); delete c[id]; setCart(c); render(); });
+      }
+
+      document.getElementById('vaciar').addEventListener('click', ()=> { localStorage.removeItem('aurora_cart'); updateCartCount(); render(); });
+
+      updateCartCount();
+      render();
+    </script>
+  </body>
+  </html>
+
+
